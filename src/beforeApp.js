@@ -7,7 +7,7 @@ function isPromise(func) {
 
 function before(func) {
   if (process && process.env !== "production") {
-  // if (true) {
+    // if (true) {
     // dev
     if (isPromise(func)) {
       // promise then do something
