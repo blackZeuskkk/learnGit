@@ -1,14 +1,26 @@
 import './assets/main.css'
 
-import { createApp } from 'vue'
+import { createApp, type App } from 'vue'
 import { createPinia } from 'pinia'
 
-import App from './App.vue'
+import Index from './App.vue'
+import Error from './Error.vue'
 import router from './router'
 
-const app = createApp(App)
+const app = createApp(Index)
+let err: App<Element> | never | undefined
+
+app.config.errorHandler = (error) => {
+  /* 处理错误 */
+  err = createApp(Error)
+  console.error(error)
+}
 
 app.use(createPinia())
 app.use(router)
 
-app.mount('#app')
+if (err) {
+  err.mount('#err')
+} else {
+  app.mount('#app')
+}
